@@ -22,6 +22,7 @@ class WordGrid extends StatelessWidget {
             (context, state) => Center(
               child: SingleChildScrollView(
                 child: GridView.builder(
+                  key: ValueKey(state.words),
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: _gridDelegate,

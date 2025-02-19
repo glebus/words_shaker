@@ -13,6 +13,7 @@ class PhraseInput extends StatefulWidget {
 
 class _PhraseInputState extends State<PhraseInput> {
   final _controller = TextEditingController();
+  bool _isObscured = true;
 
   @override
   void dispose() {
@@ -36,6 +37,7 @@ class _PhraseInputState extends State<PhraseInput> {
           builder: (context, value, child) {
             return TextField(
               controller: _controller,
+              obscureText: _isObscured,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(
                   borderRadius: ShakerConstants.borderRadius,
@@ -43,14 +45,31 @@ class _PhraseInputState extends State<PhraseInput> {
                 hintText: 'Enter phrase to shake words',
                 suffixIcon:
                     value.text.isNotEmpty
-                        ? IconButton(
-                          icon: const Icon(Icons.refresh),
-                          onPressed: () {
-                            _controller.clear();
-                            context.read<ShakerCubit>().shake('');
-                          },
+                        ? Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                _isObscured
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscured = !_isObscured;
+                                });
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () {
+                                _controller.clear();
+                                context.read<ShakerCubit>().shake('');
+                              },
+                            ),
+                          ],
                         )
-                        : null,
+                        : const SizedBox.shrink(),
               ),
               onChanged: (value) {
                 context.read<ShakerCubit>().shake(value);
