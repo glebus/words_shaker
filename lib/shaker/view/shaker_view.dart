@@ -8,17 +8,22 @@ class ShakerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            WordCountSelector(),
-            SizedBox(height: 10),
-            Expanded(child: WordGrid()),
-            SizedBox(height: 10),
-            PhraseInput(),
-          ],
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 500),
+            child: Column(
+              children: [
+                SizedBox(height: 20),
+                WordCountSelector(),
+                SizedBox(height: 10),
+                Expanded(child: WordGrid()),
+                SizedBox(height: 10),
+                PhraseInput(),
+              ],
+            ),
+          ),
         ),
       ),
     );
